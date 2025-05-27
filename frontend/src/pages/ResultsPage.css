@@ -1,0 +1,133 @@
+.results-page {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.source-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.source-info h2 {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.source-url {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 500;
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.source-url:hover {
+  text-decoration: underline;
+}
+
+.status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.status-badge[data-status="completed"] {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-badge[data-status="processing"] {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-badge[data-status="failed"] {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.summary-card, .keywords-card, .processing-card, .failed-card {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+}
+
+.summary-card h2, .keywords-card h2, .processing-card h2, .failed-card h2 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.summary-content {
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+.keywords-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.keyword-badge {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.processing-card {
+  text-align: center;
+  padding: 3rem;
+}
+
+.processing-card .loading-spinner {
+  margin: 0 auto 2rem;
+}
+
+.failed-card {
+  background-color: #f8f9fa;
+}
+
+.failed-card ul {
+  margin: 1rem 0 1rem 1.5rem;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+}
+
+.loading-text {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: var(--primary-color);
+}
+
+.error-card {
+  text-align: center;
+  padding: 3rem;
+}
+
+@media (max-width: 768px) {
+  .source-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .source-url {
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+}

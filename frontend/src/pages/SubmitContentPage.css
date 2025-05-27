@@ -1,0 +1,71 @@
+.submit-page {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.submit-card {
+  padding: 2rem;
+}
+
+.info-card {
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+}
+
+.info-card h2 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.info-card p {
+  margin-bottom: 1rem;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+.url-examples {
+  margin-top: 2rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.5rem;
+}
+
+.url-examples h3 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--light-text);
+}
+
+.url-examples ul {
+  list-style: none;
+}
+
+.url-examples li {
+  margin-bottom: 0.5rem;
+}
+
+.url-example-btn {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-align: left;
+  padding: 0;
+}
+
+.url-example-btn:hover {
+  color: var(--secondary-color);
+}
+
+@media (max-width: 768px) {
+  .submit-page {
+    grid-template-columns: 1fr;
+  }
+}
