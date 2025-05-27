@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Insight Engine</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="url"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #results {
+            margin-top: 30px;
+            display: none;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+        }
+        .card h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .keyword {
+            background-color: #e0f7fa;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: #09f;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Content Insight Engine</h1>
+    
+    <div class="form-group">
+        <label for="url">Enter a URL to analyze:</label>
+        <input type="url" id="url" placeholder="https://example.com" required>
+    </div>
+    
+    <button id="analyze-btn">Analyze Content</button>
+    
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Analyzing content, please wait...</p>
+    </div>
+    
+    <div id="results">
+        <div class="card">
+            <h3>Summary</h3>
+            <p id="summary"></p>
+        </div>
+        
+        <div class="card">
+            <h3>Keywords</h3>
+            <div class="keywords" id="keywords"></div>
+        </div>
+        
+        <div class="card">
+            <h3>Content Preview</h3>
+            <p id="content-preview"></p>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('analyze-btn').addEventListener('click', async () => {
+            const url = document.getElementById('url').value;
+            if (!url) {
+                alert('Please enter a valid URL');
+                return;
+            }
+            
+            // Show loading spinner
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('results').style.display = 'none';
+            
+            try {
+                const response = await fetch('/content/analyze', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ url })
+                });
+                
+                const data = await response.json();
+                
+                // Display results
+                document.getElementById('summary').textContent = data.summary;
+                
+                const keywordsContainer = document.getElementById('keywords');
+                keywordsContainer.innerHTML = '';
+                data.keywords.forEach(keyword => {
+                    const keywordEl = document.createElement('span');
+                    keywordEl.className = 'keyword';
+                    keywordEl.textContent = keyword;
+                    keywordsContainer.appendChild(keywordEl);
+                });
+                
+                document.getElementById('content-preview').textContent = data.contentPreview;
+                
+                // Show results
+                document.getElementById('results').style.display = 'block';
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while analyzing the content. Please try again.');
+            } finally {
+                // Hide loading spinner
+                document.getElementById('loading').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
